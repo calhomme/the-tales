@@ -10,7 +10,7 @@ window.addEventListener('mouseover', () => {
     setTimeout(function() {
         background.classList.remove('stop-scrolling');
     }, 3000);
-}, {once: true});
+}, {once: true}); 
 
 setTimeout(function() {
     gsap.to('.loading-container', {opacity: 0, y: -100, duration: 0.75, ease: 'power1.out'});
