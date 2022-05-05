@@ -44,7 +44,6 @@ function cursor(e) {
 }
 
 //NAV ANIMATION
-        trigger: ".nav-country",
 
 ScrollTrigger.matchMedia({
     //desktop
