@@ -5,15 +5,25 @@ const fadingText = document.querySelector('.loading-container');
 const removeOverlay = document.querySelector('.overlay');
 const background = document.querySelector('.page-content');
 
+window.addEventListener('mouseover', () => {
+    background.classList.add('stop-scrolling');
+    setTimeout(function() {
+        background.classList.remove('stop-scrolling');
+    }, 3000);
+}, {once: true});
+
 setTimeout(function() {
     gsap.to('.loading-container', {opacity: 0, y: -100, duration: 0.75, ease: 'power1.out'});
 }, 3500);
 
 setTimeout(function() {
-    //background.classList.add('stop-scrolling');
     removeOverlay.classList.add('fading');
 }, 4000);
 
+//BACK ON TOP AFTER RELOAD
+window.onbeforeunload = function () {
+    window.scrollTo(0, 0);
+}
 
 //PARALLAX
 window.addEventListener('scroll', function() {
@@ -22,11 +32,6 @@ window.addEventListener('scroll', function() {
 
     parallax.style.transform = 'translateY(' + scrollPosition * .7 + 'px)';
 });
-
-//BACK ON TOP AFTER RELOAD
-window.onbeforeunload = function () {
-    window.scrollTo(0, 0);
-}
 
 //MOUSEMOVE EFFECT
 let pointer = document.querySelector(".ball");
@@ -39,21 +44,35 @@ function cursor(e) {
 }
 
 //NAV ANIMATION
-gsap.to(".nav-country", {
-    x: innerWidth * 0.7,
-    duration: 3,
-    scrollTrigger: {
         trigger: ".nav-country",
-        start: "top center",
-    }
-});
 
-gsap.to(".nav-country2", {
-    x: innerWidth * -0.7,
-    duration: 3,
-    scrollTrigger: {
-        start: "top center",
-        trigger: ".nav-country2",
+ScrollTrigger.matchMedia({
+    //desktop
+    "(min-width: 768px)": function() {
+        gsap.to(".nav-country", {
+            x: innerWidth * 0.7,
+            duration: 3,
+            scrollTrigger: {
+                trigger: ".nav-country",
+                start: "top 60%",
+                end: "bottom 30%",
+                toggleActions: "restart none none none",
+                scrub: 4,
+            }
+        }),
+        gsap.to(".nav-country2", {
+            x: innerWidth * -0.7,
+            duration: 3,
+            scrollTrigger: {
+                trigger: ".nav-country2",
+                start: "top 60%",
+                end: "bottom 50%",
+                toggleActions: "restart none none none",
+                scrub: 4
+            }
+        })
     }
-});
+})
+
+
 
